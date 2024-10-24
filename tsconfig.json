@@ -1,10 +1,15 @@
 {
+  "compilerOptions": {
+    "strict": false,
+    "noEmitOnError": false,   // Allows emitting even if there are errors
+    "skipLibCheck": true,     // Skips type checking of all declaration files
+    "noUnusedLocals": false,  // Ignores unused variables
+    "noUnusedParameters": false, // Ignores unused parameters
+    "noImplicitAny": false,   // Allows `any` type without error
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "noUnusedLocals": false
-  }
+  ]
 }

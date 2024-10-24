@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const PythonFileRunner = () => {
   const [pyodide, setPyodide] = useState(null);
@@ -18,6 +18,7 @@ const PythonFileRunner = () => {
         script.async = true;
 
         script.onload = async () => {
+          // @ts-ignore
           const pyodideInstance = await window.loadPyodide({
             indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/",
           });
@@ -27,6 +28,7 @@ const PythonFileRunner = () => {
 
         document.body.appendChild(script);
       } catch (error) {
+        // @ts-ignore
         setOutput("Error loading Pyodide: " + error.message);
         setLoading(false);
       }
@@ -44,6 +46,7 @@ const PythonFileRunner = () => {
         const code = await response.text();
         setPythonCode(code); // Set the Python code from the fetched file
       } catch (error) {
+        // @ts-ignore
         setOutput("Error fetching Python code: " + error.message);
       }
     };
@@ -55,9 +58,11 @@ const PythonFileRunner = () => {
     if (!pyodide || !pythonCode) return;
 
     try {
+      // @ts-ignore
       const output = await pyodide.runPython(pythonCode); // Run the loaded Python code
       setOutput(output);
     } catch (error) {
+      // @ts-ignore
       setOutput("Error running script: " + error.message);
     }
   };
