@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "strict": false,
     "noEmitOnError": false,   // Allows emitting even if there are errors
     "skipLibCheck": true,     // Skips type checking of all declaration files
