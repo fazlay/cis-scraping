@@ -195,6 +195,42 @@ export function ListComponent() {
     },
   });
 
+  function exportVisibleDataAsCSV() {
+    const visibleData = table.getRowModel().rows.map((row) => {
+      // Get data for only visible columns and exclude undefined values
+      const rowData = {};
+      row.getVisibleCells().forEach((cell) => {
+        const value = cell.getValue();
+        if (value !== undefined) {
+          rowData[cell.column.id] = value;
+        }
+      });
+      return rowData;
+    });
+
+    console.log(visibleData); // Log the visible data
+
+    function convertToCSV(data) {
+      const headers = Object.keys(data[0]).join(",") + "\n";
+      const rows = data.map((row) => Object.values(row).join(",")).join("\n");
+
+      return headers + rows;
+    }
+
+    function downloadCSV() {
+      const csvData = convertToCSV(visibleData);
+      const blob = new Blob([csvData], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "visible-data.csv";
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    downloadCSV();
+  }
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
@@ -206,6 +242,9 @@ export function ListComponent() {
           }
           className="max-w-sm"
         />
+        <Button variant="outline" onClick={() => exportVisibleDataAsCSV()}>
+          Show
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
