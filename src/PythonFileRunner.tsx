@@ -7,7 +7,8 @@ const PythonFileRunner = () => {
   const [pythonCode, setPythonCode] = useState("");
 
   // Static URL of the Python file in the assets folder
-  const pythonFileUrl = "/assets/script.py"; // Adjust this path based on your structure
+  const pythonFileUrl = "/assets/test_proxy.py"; // Adjust this path based on your structure
+  //test_proxy.py
 
   useEffect(() => {
     // Load Pyodide
@@ -58,6 +59,8 @@ const PythonFileRunner = () => {
     if (!pyodide || !pythonCode) return;
 
     try {
+      // @ts-ignore
+      await pyodide.loadPackage("lxml");
       // @ts-ignore
       const output = await pyodide.runPython(pythonCode); // Run the loaded Python code
       setOutput(output);
