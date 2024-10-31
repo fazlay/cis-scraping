@@ -38,22 +38,22 @@ const PythonFileRunner = () => {
     loadPyodide();
   }, []);
 
-  useEffect(() => {
-    // Fetch the Python code from the static URL
-    const fetchPythonCode = async () => {
-      try {
-        const response = await fetch(pythonFileUrl);
-        if (!response.ok) throw new Error("Network response was not ok");
-        const code = await response.text();
-        setPythonCode(code); // Set the Python code from the fetched file
-      } catch (error) {
-        // @ts-ignore
-        setOutput("Error fetching Python code: " + error.message);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch the Python code from the static URL
+  //   const fetchPythonCode = async () => {
+  //     try {
+  //       const response = await fetch(pythonFileUrl);
+  //       if (!response.ok) throw new Error("Network response was not ok");
+  //       const code = await response.text();
+  //       setPythonCode(code); // Set the Python code from the fetched file
+  //     } catch (error) {
+  //       // @ts-ignore
+  //       setOutput("Error fetching Python code: " + error.message);
+  //     }
+  //   };
 
-    fetchPythonCode();
-  }, [pythonFileUrl]);
+  //   fetchPythonCode();
+  // }, [pythonFileUrl]);
 
   const runPythonScript = async () => {
     if (!pyodide || !pythonCode) return;
